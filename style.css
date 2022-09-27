@@ -21,7 +21,7 @@ h2 {
 /* Used for the links in the header */
 h3 {
   font-size: 30px;
-  float:right;
+  text-align:right;
   font-weight: normal;
 }
 
