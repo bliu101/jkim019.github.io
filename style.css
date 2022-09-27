@@ -63,6 +63,10 @@ hr {
   color: black;
   padding: 30px;
   margin: 60px;
+  /* Found a wrapper on github */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
 }
 
