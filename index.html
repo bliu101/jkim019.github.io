@@ -1,82 +1,126 @@
-<!--INDEX -->
 <html>
+
   <head>
     <link rel="stylesheet" href="style.css">
-    <title>Welcome to Mass Hamster Association!</title>
+    <title>Joe's Hotdog Stand</title>
   </head>
 
   <body>
-
-    <!-- HEADER -->
-    <div class="header">
-      <!-- Logo made by me :) -->
-      <img src="logo.png" style="float:left"/>
-      <h2>| Mass Hamster Association</h2>
-
-      <h3 class="menulinks">
-        <b> Home &nbsp;</b><!-- Note: You are here -->
-        <a href ="services.html">Services</a>
-        &nbsp;
-        <a href ="contact_me.html">Contact Us</a>
-      </h3>
-    </div>
-
-    <!-- INFO INTRO -->
-    <div class="introimg" style="background-image:url('hamster_border.png'); ">
-      <h1 class="introtext"> We Breed Hamsters! </h1>
-    </div>
-
-    <!-- INFO TEXT -->
-    <div class="infotext">
-      <h4 style="color: #967259;"> Welcome to our site!
-      </h4>
-      <hr/>
-      <p>
-        We are an organization located in Medford, Massachusetts that is dedicated
-        to the thriving of the recently domesticated species, the Syrian Hamster.
-        In order to achieve this, we house big, healthy hamsters with big enclosures
-        to thrive in. Through extensive breeding knowledge and research of our team,
-        we are able to create a great line of thriving hamsters, where we keep the
-        hamsters with the best genetics for the future, and give out the rest to families
-        looking to adopt a furry little animal for their household.
+    <!-- intro -->
+    <div class="receipt">
+      <p style="text-align: center;">
+        Thank you for ordering at,
+        <h1 class="logo">
+          Joe's Hotdog Stand
+        </h1>
       </p>
-      <p style ="color:tomato;">
-          WE DISCOURAGE: Adopting hamsters from pet stores that have gotten their rodents from pet mills
-          for the sole purpose of lucrative gain.
-      </p>
-    </div>
 
-    <div class="infotext">
-      <h4 style="color: #967259;"> About our Hamsters
-      </h4>
-      <hr/>
-      <!-- Using float here to add text to the right-->
-      <img style="margin:60px;float:left;width:250px;height:auto;" src ="watermelon.jpg"/>
-      <br>
-      <p>
-        We specialize in one of 5 currently domesticated hamster species, the "Syrian Hamster".
-        This is because we believe that the syrian hamster's bigger size allows us to get a better
-        idea of health. The idea behind his philosophy is,
+      <hr>
+
+      <p class="data">
+        <p id="hotdog_amt"></p>
+        <p id="fries_amt"></p>
+        <p id="sodas_amt"></p>
+
+        <br/>
+        <p id="total"></p>
+        <p id="got_discount"></p>
+        <p>TAX: $6.25</p>
+        <br/>
+        <p>Your total is,</p>
+        <h3 id="abs_total"></h3>
+
+
       </p>
-      <p>
-        <em> "The Bigger the Hamster, the Bigger the Heart."
-          </em>
-      </p>
-      <p>
-          For those looking for a different type of hamster (ie. the Dwarf Hamster Species), please locate a
-          different business that breeds them. For those looking for a nice and fluffy syrian hamster, you are
-          at the right place!
-      </p>
+
 
     </div>
 
-    <!-- Footer -->
-    <footer>
-      <p style="color:rgba(255, 255, 255, .75)">
-        Disclosure: This is not a real buisness, even though it should be
-        <br>Do it cowards
-      </p>
-    </footer>
+
+
+
+    <script language="javascript">
+      // FUNCTIONS
+
+      // Taxes
+      function add_tax(total) {
+        return total + 6.25;
+      }
+
+      // Job Offer
+      function joe_offer(total) {
+        if (total > 20.00)
+        {
+          return total * 0.90;
+        } else {
+          return total;
+        }
+      }
+
+      // Calculate the subtotal
+      function subtotal(h, f, s) {
+        var hotdog_price = h * (4.25);
+        var fries_price = f * (2.60);
+        var sodas_price = s * (1.50);
+
+        return hotdog_price + fries_price + sodas_price;
+      }
+
+      // Hotdogs, Fries, Sodas question
+      var hotdogs = 0;
+      var fries = 0;
+      var sodas = 0;
+
+      // looping the question until a valid answer appears
+      hotdogs = prompt("HOTDOGS: How many hotdogs would you like?", "0");
+      while (hotdogs == null || hotdogs % 1 != 0) {
+        hotdogs = prompt("HOTDOGS: (ERROR) Please enter a valid number", "0");
+      }
+
+      fries = prompt("FRIES: How many fries would you like?", "0");
+      while (fries == null || fries % 1 != 0) {
+        fries = prompt("FRIES: (ERROR) Please enter a valid number", "0");
+      }
+
+      sodas = prompt("SODAS: How many sodas would you like?", "0");
+      while (sodas == null || sodas % 1 != 0) {
+        sodas = prompt("SODAS: (ERROR) Please enter a valid number", "0");
+      }
+
+      hotdogs_price = Number(hotdogs) * 4.25;
+      fries_price = Number(fries) * 2.60;
+      sodas_price = Number(sodas) * 1.50;
+
+      var total = subtotal(hotdogs, fries, sodas);
+      var discounted_total = joe_offer(total);
+      var final = add_tax(discounted_total);
+
+      // Write the ammount of good
+      document.getElementById("hotdog_amt").innerHTML = hotdogs + " hotdogs ............ " + "$" + hotdogs_price.toFixed(2);
+      document.getElementById("fries_amt").innerHTML = fries + " fries ............ " + "$" + fries_price.toFixed(2);
+      document.getElementById("sodas_amt").innerHTML = sodas + " sodas ............ " + "$" + sodas_price.toFixed(2);
+
+      // Raw Total
+      document.getElementById("total").innerHTML = "TOTAL: $" +total.toFixed(2);
+
+
+      // Discount
+      if (discounted_total != total)
+      {
+        document.getElementById("got_discount").innerHTML = "DISCOUNTED: $"+discounted_total.toFixed(2);
+      } else {
+        document.getElementById("got_discount").innerHTML = "NO DISCOUNT";
+      }
+
+
+      // Final
+      document.getElementById("abs_total").innerHTML = "$" + final.toFixed(2);
+
+
+    </script>
+
   </body>
+
+
 
 </html>
