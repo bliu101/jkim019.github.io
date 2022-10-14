@@ -1,126 +1,120 @@
 <html>
-
   <head>
     <link rel="stylesheet" href="style.css">
-    <title>Joe's Hotdog Stand</title>
+    <title>Is Amicable?</title>
   </head>
 
   <body>
-    <!-- intro -->
-    <div class="receipt">
-      <p style="text-align: center;">
-        Thank you for ordering at,
-        <h1 class="logo">
-          Joe's Hotdog Stand
-        </h1>
-      </p>
+    <!-- beginning of webpage -->
 
-      <hr>
-
-      <p class="data">
-        <p id="hotdog_amt"></p>
-        <p id="fries_amt"></p>
-        <p id="sodas_amt"></p>
-
-        <br/>
-        <p id="total"></p>
-        <p id="got_discount"></p>
-        <p>TAX: $6.25</p>
-        <br/>
-        <p>Your total is,</p>
-        <h3 id="abs_total"></h3>
+    <div class="result">
+      <p id="amicable"></p>
 
 
-      </p>
+      <br>
+
 
 
     </div>
 
-
-
-
+    <div class="info">
+      <p id="factor_1"></p>
+      <p id="factor_2"></p>
+    </div>
     <script language="javascript">
-      // FUNCTIONS
+      // PURPOSE: This is a function that gets a number and returns an array of its factors
+      // RETURNS: accepts a number, num, and returns an array of its factors
+      function getFactors(num) {
+        // anticipate the length of the array
+        var curr_length = 0;
+        const factors = [curr_length];
 
-      // Taxes
-      function add_tax(total) {
-        return total + 6.25;
-      }
-
-      // Job Offer
-      function joe_offer(total) {
-        if (total > 20.00)
-        {
-          return total * 0.90;
-        } else {
-          return total;
+        // fill in the array with the factors
+        for (let i = 0; i < num+1; i++) {
+          if (i == 0){
+            continue;
+          } else if (num % i == 0) {
+            // append to curr place starting at 0
+            factors.length = curr_length;
+            factors[curr_length] = i;
+            curr_length = curr_length + 1;
+          }
         }
+        return factors;
       }
 
-      // Calculate the subtotal
-      function subtotal(h, f, s) {
-        var hotdog_price = h * (4.25);
-        var fries_price = f * (2.60);
-        var sodas_price = s * (1.50);
+      // PURPOSE: This is a function where it tells if two number's factors are
+      //          amicable
+      // RETURNS: recieves two arrays of factors of a certain number then
+      function isAmicable(factors1, factors2) {
+        // must check for the sums of the factors first
+        if (sumOfFactors(factors1) == factors2[factors2.length-1])
+        {
+          // must also check the other way
+          if (sumOfFactors(factors2) == factors1[factors1.length-1])
+          {
+            return true;
+          }
+        }
 
-        return hotdog_price + fries_price + sodas_price;
+        // in all other cases, returns false
+        return false;
       }
 
-      // Hotdogs, Fries, Sodas question
-      var hotdogs = 0;
-      var fries = 0;
-      var sodas = 0;
-
-      // looping the question until a valid answer appears
-      hotdogs = prompt("HOTDOGS: How many hotdogs would you like?", "0");
-      while (hotdogs == null || hotdogs % 1 != 0) {
-        hotdogs = prompt("HOTDOGS: (ERROR) Please enter a valid number", "0");
+      // PURPOSE: Gets the sum of factors from an array of factors
+      // RETURNS: recieves an array of factors, returns an int which describes the
+      //          SUM of those factors
+      function sumOfFactors(factors) {
+        var sum = 0;
+        for (let i = 0; i < factors.length-1; i++)
+        {
+          sum = sum + factors[i];
+        }
+        return sum;
       }
 
-      fries = prompt("FRIES: How many fries would you like?", "0");
-      while (fries == null || fries % 1 != 0) {
-        fries = prompt("FRIES: (ERROR) Please enter a valid number", "0");
-      }
 
-      sodas = prompt("SODAS: How many sodas would you like?", "0");
-      while (sodas == null || sodas % 1 != 0) {
-        sodas = prompt("SODAS: (ERROR) Please enter a valid number", "0");
-      }
+      // get the two numbers using promp
+      var number1 = prompt("Please Input Number 1:","0");
+      var number2 = prompt("Please Input Number 2:","0");
 
-      hotdogs_price = Number(hotdogs) * 4.25;
-      fries_price = Number(fries) * 2.60;
-      sodas_price = Number(sodas) * 1.50;
-
-      var total = subtotal(hotdogs, fries, sodas);
-      var discounted_total = joe_offer(total);
-      var final = add_tax(discounted_total);
-
-      // Write the ammount of good
-      document.getElementById("hotdog_amt").innerHTML = hotdogs + " hotdogs ............ " + "$" + hotdogs_price.toFixed(2);
-      document.getElementById("fries_amt").innerHTML = fries + " fries ............ " + "$" + fries_price.toFixed(2);
-      document.getElementById("sodas_amt").innerHTML = sodas + " sodas ............ " + "$" + sodas_price.toFixed(2);
-
-      // Raw Total
-      document.getElementById("total").innerHTML = "TOTAL: $" +total.toFixed(2);
+      // input into factors arrays
+      const factors1 = getFactors(number1);
+      const factors2 = getFactors(number2);
 
 
-      // Discount
-      if (discounted_total != total)
+      // is amicable
+      if (isAmicable(factors1,factors2))
       {
-        document.getElementById("got_discount").innerHTML = "DISCOUNTED: $"+discounted_total.toFixed(2);
+        document.getElementById("amicable").innerHTML = "IS AMICABLE";
+
+
       } else {
-        document.getElementById("got_discount").innerHTML = "NO DISCOUNT";
+        document.getElementById("amicable").innerHTML = "IS NOT AMICABLE";
       }
 
-
-      // Final
-      document.getElementById("abs_total").innerHTML = "$" + final.toFixed(2);
+      // info
+      document.getElementById("factor_1").innerHTML = "Factors of "+number1+": "+factors1;
+      document.getElementById("factor_2").innerHTML = "Factors of "+number2+": "+factors2;
 
 
     </script>
 
+
+<!--
+    <form action="">
+      <label for="number1">First Num:</label>
+      <input type="number" id="number1" name="number1" value="0">
+
+      <br/>
+
+      <label for="lname">Second Num:</label>
+      <input type="number" id="number2" name="number2" value="0">
+      <br/><br/>
+      <input type="submit" value="Calculate!" onClick="is_Amicable(number1, number2)">
+    </form> -->
+
+
   </body>
-
-
 
 </html>

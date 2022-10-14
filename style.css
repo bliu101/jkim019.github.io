@@ -1,43 +1,24 @@
 body {
-  background: #FFC594;
-  font-family: 'Lucida Sans Unicode';
+  background: #232222;
+  font-family: 'Courier New', monospace;
   line-height: 1.3;
   margin: 60px;
-}
-
-p {
-  color: #808080;
-  font-size: 20px;
   text-align: center;
 }
 
-hr {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-}
-
-h3 {
-  color: #808080;
-  font-size: 45px;
-  font-style: italic;
-  text-align: center;
-}
-
-.receipt {
+.result {
   background: white;
+  color: black;
   padding: 30px;
   margin: 60px;
+  font-size: 100px;
 }
 
-.data {
-  margin: 60px;
-  text-align: left;
-}
-
-.logo{
-  color: #FF8040;
-  font-size: 70px;
-  font-style: italic;
-  text-align: center;
+.info {
+  background: white;
+  color: black;
+  padding: 60px;
+  margin: 100px;
+  font-size: 30px;
+  float: left;
 }
